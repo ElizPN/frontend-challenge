@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { AppComponent } from './app.component';
+import { CountdownComponent } from './countdown/countdown.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    CountdownComponent
+  ],
+
+  imports: [
+    BrowserModule,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: []
+})
+export class AppModule { }

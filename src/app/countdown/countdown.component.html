@@ -1,1 +1,16 @@
-<p>countdown works!</p>
+<div class="countdown-container">
+  <div class="countdown-title">Time to Midsummer Eve</div>
+  <div class="countdown-timer">
+    <span class="countdown-days"></span> days, <span class="countdown-hours"></span> h,
+    <span class="countdown-minutes"></span>m, <span class="countdown-seconds"></span>s
+  </div>
+  <div class="countdown-details">
+    <input type="text" class="countdown-title-input" placeholder="Enter Title" />
+  </div>
+  <div class="countdown-details">
+    <input type="date" class="countdown-date-input" placeholder="Select Date" [(ngModel)]="inputValue" />
+  </div>
+
+  <button (click)="logTextToConsole('Hello from CountdownComponent')">Log Text</button>
+
+</div>
