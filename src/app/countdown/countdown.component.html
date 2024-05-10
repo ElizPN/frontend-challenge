@@ -1,8 +1,10 @@
 <div class="countdown-container">
   <div class="countdown-title">Time to Midsummer Eve</div>
   <div class="countdown-timer">
-    <span class="countdown-days"></span> days, <span class="countdown-hours"></span> h,
-    <span class="countdown-minutes"></span>m, <span class="countdown-seconds"></span>s
+    <span class="countdown-days">{{ timeDifference.days }}</span> days,
+    <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
+    <span class="countdown-minutes">{{ timeDifference.minutes }}</span>m,
+    <span class="countdown-seconds">{{ timeDifference.seconds }}</span>s
   </div>
   <div class="countdown-details">
     <input type="text" class="countdown-title-input" placeholder="Enter Title" />
@@ -15,6 +17,4 @@
 
 </div>
 
-<div *ngIf="timeDifference">
-  <p>{{ timeDifference }}</p>
-</div>
+
