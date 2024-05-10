@@ -1,11 +1,10 @@
 import { Component } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
-import { CountdownComponent } from './countdown/countdown.component'
-import { FormsModule } from '@angular/forms'
+import { AppModule } from './app.module'
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [AppModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
