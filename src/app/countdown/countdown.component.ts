@@ -28,10 +28,14 @@ export class CountdownComponent implements OnInit {
     })
   }
 
-
   calculateTimeDifference() {
     const currentDate = new Date()
     const selectedDate = new Date(this.inputValue)
+
+    if (this.inputValue === '' || selectedDate < currentDate || !selectedDate) {
+      this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
+      return
+    }
 
     this.timeDifference = this.getTimeDifference(selectedDate, currentDate)
   }
