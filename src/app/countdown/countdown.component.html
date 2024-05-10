@@ -11,6 +11,10 @@
     <input type="date" class="countdown-date-input" placeholder="Select Date" [(ngModel)]="inputValue" />
   </div>
 
-  <button (click)="logTextToConsole('Hello from CountdownComponent')">Log Text</button>
+  <button (click)="calculateTimeDifference()">Calculate Difference</button>
 
+</div>
+
+<div *ngIf="timeDifference">
+  <p>{{ timeDifference }}</p>
 </div>
