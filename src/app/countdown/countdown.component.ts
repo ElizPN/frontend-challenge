@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { interval, Subscription } from 'rxjs'
+import { Component } from '@angular/core'
+import { interval } from 'rxjs'
 import holidaysData from '../../holidays.json'
 
 @Component({
@@ -7,7 +7,7 @@ import holidaysData from '../../holidays.json'
   templateUrl: './countdown.component.html',
   styleUrls: ['./countdown.component.scss'],
 })
-export class CountdownComponent implements OnInit {
+export class CountdownComponent {
   inputValue: string = ''
   timeDifference: { days: number; hours: number; minutes: number; seconds: number } = {
     days: 0,
@@ -18,23 +18,16 @@ export class CountdownComponent implements OnInit {
   holidaysList: { name: string; date: string }[] = []
   selectedHoliday: { name: string; date: string } | undefined
 
-  private timerSubscription: Subscription | undefined
+  calculateTimeDifference(selectedHolidayDay: string) {
+    if (!selectedHolidayDay) {
+      this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
+      return
+    }
 
-  ngOnInit() {
-    this.startTimer()
-  }
-
-  private startTimer() {
-    this.timerSubscription = interval(1000).subscribe(() => {
-      this.calculateTimeDifference()
-    })
-  }
-
-  calculateTimeDifference() {
     const currentDate = new Date()
-    const selectedDate = new Date(this.inputValue)
+    const selectedDate = new Date(selectedHolidayDay)
 
-    if (this.inputValue === '' || selectedDate < currentDate || !selectedDate) {
+    if (selectedDate < currentDate || !selectedDate) {
       this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
       return
     }
@@ -78,6 +71,9 @@ export class CountdownComponent implements OnInit {
 
   onHolidaySelect(selectedHoliday: { name: string; date: string }) {
     this.inputValue = selectedHoliday.date
+    interval(1000).subscribe(() => {
+      this.calculateTimeDifference(this.inputValue)
+    })
   }
 
   handleInput(event: Event) {
