@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { interval, Subscription } from 'rxjs'
+import holidaysData from '../../holidays.json'
 
 @Component({
   selector: 'app-countdown',
@@ -14,9 +15,10 @@ export class CountdownComponent implements OnInit {
     minutes: 0,
     seconds: 0,
   }
-  private timerSubscription: Subscription | undefined
+  holidaysList: { name: string; date: string }[] = []
+  selectedHoliday: { name: string; date: string } | undefined
 
-  constructor() {}
+  private timerSubscription: Subscription | undefined
 
   ngOnInit() {
     this.startTimer()
@@ -53,5 +55,33 @@ export class CountdownComponent implements OnInit {
       minutes: minutes % 60,
       seconds: seconds % 60,
     }
+  }
+
+  loadHolidays() {
+    this.holidaysList = []
+
+    Object.entries(holidaysData).forEach(([name, date]) => {
+      this.holidaysList.push({ name, date })
+    })
+  }
+
+  filterHolidays(searchTerm: string) {
+    if (!searchTerm) {
+      this.loadHolidays()
+      return
+    }
+
+    this.holidaysList = Object.keys(holidaysData)
+      .filter(key => key.toLowerCase().includes(searchTerm.toLowerCase()))
+      .map(key => ({ name: key, date: holidaysData[key as keyof typeof holidaysData] }))
+  }
+
+  onHolidaySelect(selectedHoliday: { name: string; date: string }) {
+    this.inputValue = selectedHoliday.date
+  }
+
+  handleInput(event: Event) {
+    const inputValue = (event.target as HTMLInputElement)?.value
+    this.filterHolidays(inputValue)
   }
 }

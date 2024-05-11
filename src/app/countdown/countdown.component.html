@@ -7,7 +7,13 @@
     <span class="countdown-seconds">{{ timeDifference.seconds }}</span>s
   </div>
   <div class="countdown-details">
-    <input type="text" class="countdown-title-input" placeholder="Enter Title" />
+    <input type="text" class="countdown-title-input" placeholder="Search Holidays" (input)="handleInput($event)" />
+  </div>
+  <div class="dropdown-list">
+    <div class="dropdown-item" *ngFor="let holiday of holidaysList" (click)="onHolidaySelect(holiday)">
+      {{ holiday.name }}
+    </div>
+    <div class="no-results" *ngIf="holidaysList.length === 0">No results found.</div>
   </div>
   <div class="countdown-details">
     <input type="date" class="countdown-date-input" placeholder="Select Date" [(ngModel)]="inputValue" />
