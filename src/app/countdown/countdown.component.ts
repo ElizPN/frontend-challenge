@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, ViewChild, ElementRef } from '@angular/core'
 import { interval } from 'rxjs'
 import holidaysData from '../../holidays.json'
 
@@ -8,7 +8,10 @@ import holidaysData from '../../holidays.json'
   styleUrls: ['./countdown.component.scss'],
 })
 export class CountdownComponent {
-  inputValue: string = ''
+  @ViewChild('searchField', { static: false }) searchField!: ElementRef
+  searchValue: string
+
+  selectedHolidayDate: string = ''
   timeDifference: { days: number; hours: number; minutes: number; seconds: number } = {
     days: 0,
     hours: 0,
@@ -16,13 +19,13 @@ export class CountdownComponent {
     seconds: 0,
   }
   holidaysList: { name: string; date: string }[] = []
-  selectedHoliday: { name: string; date: string } | undefined
   allHolidays: Record<string, string>
   futureHolidays: Record<string, string>
 
   constructor() {
     this.allHolidays = { ...holidaysData }
     this.futureHolidays = {}
+    this.searchValue = ''
 
     for (const holiday in holidaysData) {
       const holidayDate = new Date(this.allHolidays[holiday])
@@ -35,14 +38,13 @@ export class CountdownComponent {
   }
 
   calculateTimeDifference() {
-    const selectedHolidayDay: string = this.inputValue
-    if (!selectedHolidayDay) {
+    if (!this.selectedHolidayDate) {
       this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
       return
     }
 
     const currentDate = new Date()
-    const selectedDate = new Date(selectedHolidayDay)
+    const selectedDate = new Date(this.selectedHolidayDate)
     if (selectedDate < currentDate || !selectedDate) {
       this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
       return
@@ -86,11 +88,14 @@ export class CountdownComponent {
   }
 
   onHolidaySelect(selectedHoliday: { name: string; date: string }) {
-    this.inputValue = selectedHoliday.date
+    this.selectedHolidayDate = selectedHoliday.date
 
     interval(1000).subscribe(() => {
       this.calculateTimeDifference()
     })
+
+    this.searchValue = ''
+    this.holidaysList = []
   }
 
   handleInput(event: Event) {
