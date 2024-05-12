@@ -9,8 +9,8 @@ import holidaysData from '../../holidays.json'
 })
 export class CountdownComponent {
   @ViewChild('searchField', { static: false }) searchField!: ElementRef
-  searchValue: string
-
+  holidayTitle: string = ''
+  searchValue: string = ''
   selectedHolidayDate: string = ''
   timeDifference: { days: number; hours: number; minutes: number; seconds: number } = {
     days: 0,
@@ -19,14 +19,10 @@ export class CountdownComponent {
     seconds: 0,
   }
   holidaysList: { name: string; date: string }[] = []
-  allHolidays: Record<string, string>
-  futureHolidays: Record<string, string>
+  allHolidays: Record<string, string> = { ...holidaysData }
+  futureHolidays: Record<string, string> = {}
 
   constructor() {
-    this.allHolidays = { ...holidaysData }
-    this.futureHolidays = {}
-    this.searchValue = ''
-
     for (const holiday in holidaysData) {
       const holidayDate = new Date(this.allHolidays[holiday])
       const currentDate = new Date()
@@ -87,8 +83,9 @@ export class CountdownComponent {
       .map(key => ({ name: key, date: this.futureHolidays[key] }))
   }
 
-  onHolidaySelect(selectedHoliday: { name: string; date: string }) {
-    this.selectedHolidayDate = selectedHoliday.date
+  onHolidaySelect({ name, date }: { name: string; date: string }) {
+    this.holidayTitle = name
+    this.selectedHolidayDate = date
 
     interval(1000).subscribe(() => {
       this.calculateTimeDifference()
