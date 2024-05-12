@@ -87,6 +87,7 @@ export class CountdownComponent {
 
   onHolidaySelect(selectedHoliday: { name: string; date: string }) {
     this.inputValue = selectedHoliday.date
+
     interval(1000).subscribe(() => {
       this.calculateTimeDifference()
     })
@@ -94,6 +95,11 @@ export class CountdownComponent {
 
   handleInput(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value
+
     this.filterHolidays(inputValue)
+
+    if (inputValue === '') {
+      this.holidaysList = []
+    }
   }
 }
