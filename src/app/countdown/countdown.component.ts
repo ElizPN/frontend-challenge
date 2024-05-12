@@ -18,7 +18,8 @@ export class CountdownComponent {
   holidaysList: { name: string; date: string }[] = []
   selectedHoliday: { name: string; date: string } | undefined
 
-  calculateTimeDifference(selectedHolidayDay: string) {
+  calculateTimeDifference() {
+    const selectedHolidayDay: string = this.inputValue
     if (!selectedHolidayDay) {
       this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
       return
@@ -26,7 +27,6 @@ export class CountdownComponent {
 
     const currentDate = new Date()
     const selectedDate = new Date(selectedHolidayDay)
-
     if (selectedDate < currentDate || !selectedDate) {
       this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
       return
@@ -72,7 +72,7 @@ export class CountdownComponent {
   onHolidaySelect(selectedHoliday: { name: string; date: string }) {
     this.inputValue = selectedHoliday.date
     interval(1000).subscribe(() => {
-      this.calculateTimeDifference(this.inputValue)
+      this.calculateTimeDifference()
     })
   }
 
