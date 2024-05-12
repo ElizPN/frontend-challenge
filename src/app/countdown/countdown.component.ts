@@ -17,6 +17,22 @@ export class CountdownComponent {
   }
   holidaysList: { name: string; date: string }[] = []
   selectedHoliday: { name: string; date: string } | undefined
+  allHolidays: Record<string, string>
+  futureHolidays: Record<string, string>
+
+  constructor() {
+    this.allHolidays = { ...holidaysData }
+    this.futureHolidays = {}
+
+    for (const holiday in holidaysData) {
+      const holidayDate = new Date(this.allHolidays[holiday])
+      const currentDate = new Date()
+
+      if (holidayDate > currentDate) {
+        this.futureHolidays[holiday] = this.allHolidays[holiday]
+      }
+    }
+  }
 
   calculateTimeDifference() {
     const selectedHolidayDay: string = this.inputValue
@@ -53,7 +69,7 @@ export class CountdownComponent {
   loadHolidays() {
     this.holidaysList = []
 
-    Object.entries(holidaysData).forEach(([name, date]) => {
+    Object.entries(this.futureHolidays).forEach(([name, date]) => {
       this.holidaysList.push({ name, date })
     })
   }
@@ -64,9 +80,9 @@ export class CountdownComponent {
       return
     }
 
-    this.holidaysList = Object.keys(holidaysData)
+    this.holidaysList = Object.keys(this.futureHolidays)
       .filter(key => key.toLowerCase().includes(searchTerm.toLowerCase()))
-      .map(key => ({ name: key, date: holidaysData[key as keyof typeof holidaysData] }))
+      .map(key => ({ name: key, date: this.futureHolidays[key] }))
   }
 
   onHolidaySelect(selectedHoliday: { name: string; date: string }) {
