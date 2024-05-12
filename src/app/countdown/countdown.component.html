@@ -1,5 +1,5 @@
 <div class="countdown-container">
-  <div class="countdown-title" *ngIf="holidayTitle">Time to {{holidayTitle}}</div>
+  <div class="countdown-title" *ngIf="holidayTitle">Time to {{ holidayTitle }}</div>
   <div class="countdown-timer">
     <span class="countdown-days">{{ timeDifference.days }}</span> days,
     <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
@@ -29,5 +29,8 @@
       No results found.
     </div>
   </div>
-  <div class="countdown-details"></div>
+  <div class="countdown-details">
+    <div *ngIf="holidayTitle">Title: {{ holidayTitle }}</div>
+    <div *ngIf="selectedHolidayDate">Date: {{ selectedHolidayDate }}</div>
+  </div>
 </div>
