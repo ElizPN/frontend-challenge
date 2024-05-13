@@ -5,13 +5,24 @@
   <ng-template #defaultTitle>
     <div class="countdown-title">Find the holiday</div>
   </ng-template>
-  <div class="countdown-timer" *ngIf="holidayTitle">
+  <div
+    class="countdown-timer"
+    *ngIf="
+      holidayTitle &&
+        timeDifference.days &&
+        timeDifference.hours &&
+        timeDifference.minutes &&
+        timeDifference.seconds;
+      else defaultTimerPlaceholder
+    "
+  >
     <span class="countdown-days">{{ timeDifference.days }}</span> days,
     <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
     <span class="countdown-minutes">{{ timeDifference.minutes }}</span
     >m, <span class="countdown-seconds">{{ timeDifference.seconds }}</span
     >s
   </div>
+  <ng-template #defaultTimerPlaceholder> <div>Loading...</div></ng-template>
   <div class="countdown-details">
     <input
       type="text"

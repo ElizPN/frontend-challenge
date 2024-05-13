@@ -23,6 +23,17 @@ export class CountdownComponent {
   futureHolidays: Record<string, string> = {}
 
   constructor() {
+    const storedSelectedHolidayDate = localStorage.getItem('selectedHolidayDate')
+    const storedSelectedHolidayName = localStorage.getItem('selectedHolidayName')
+
+    if (storedSelectedHolidayDate && storedSelectedHolidayName) {
+      this.selectedHolidayDate = storedSelectedHolidayDate
+      this.holidayTitle = storedSelectedHolidayName
+      interval(1000).subscribe(() => {
+        this.calculateTimeDifference()
+      })
+    }
+
     for (const holiday in holidaysData) {
       const holidayDate = new Date(this.allHolidays[holiday])
       const currentDate = new Date()
@@ -31,6 +42,11 @@ export class CountdownComponent {
         this.futureHolidays[holiday] = this.allHolidays[holiday]
       }
     }
+  }
+
+  saveToLocalStorage() {
+    window.localStorage.setItem('selectedHolidayDate', this.selectedHolidayDate)
+    window.localStorage.setItem('selectedHolidayName', this.holidayTitle)
   }
 
   calculateTimeDifference() {
@@ -86,6 +102,7 @@ export class CountdownComponent {
   onHolidaySelect({ name, date }: { name: string; date: string }) {
     this.holidayTitle = name
     this.selectedHolidayDate = date
+    this.saveToLocalStorage()
 
     interval(1000).subscribe(() => {
       this.calculateTimeDifference()
@@ -105,4 +122,3 @@ export class CountdownComponent {
     }
   }
 }
-
