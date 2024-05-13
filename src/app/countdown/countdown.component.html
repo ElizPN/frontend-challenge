@@ -1,5 +1,10 @@
 <div class="countdown-container">
-  <div class="countdown-title" *ngIf="holidayTitle">Time to {{ holidayTitle }}</div>
+  <div class="countdown-title" *ngIf="holidayTitle; else defaultTitle">
+    Time to {{ holidayTitle }}
+  </div>
+  <ng-template #defaultTitle>
+    <div class="countdown-title">Choose the holiday</div>
+  </ng-template>
   <div class="countdown-timer">
     <span class="countdown-days">{{ timeDifference.days }}</span> days,
     <span class="countdown-hours">{{ timeDifference.hours }}</span> h,

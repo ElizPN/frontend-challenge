@@ -8,10 +8,16 @@
   font-family: sans-serif;
 }
 
+@media (min-width: 370px) {
+  .countdown-container {
+    height: 100vh;
+  }
+}
+
 @media (min-width: 768px) {
   .countdown-container {
-    padding: 15px;
-    min-width: 796px;
+    margin-top: 40px;
+    width: 700px;
     height: 390px;
   }
 }

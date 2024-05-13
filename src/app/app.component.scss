@@ -1,13 +1,11 @@
-
 main {
-  width: 100%;
-  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  justify-content: center;
+}
 
-  h1 {
-    font-size: 6rem;
+@media (max-width: 420px) {
+  main {
+    height: 100vh;
   }
 }
