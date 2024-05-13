@@ -1,55 +1,50 @@
-
-
-
-$primary-color: #333;
-$secondary-color: #fff;
-$font-size-base: 1rem;
-
 .countdown-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2rem;
-  border-radius: 5px;
-  background-color: lighten($primary-color, 20%);
+  background-color: #f2f2f2;
+  padding: 30px;
+  border-radius: 10px;
+  font-family: sans-serif;
+}
+
+@media (min-width: 768px) {
+  .countdown-container {
+    padding: 15px;
+    min-width: 796px;
+    height: 390px;
+  }
 }
 
 .countdown-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: $primary-color;
+  font-size: 2em;
+  margin-bottom: 10px;
 }
 
 .countdown-timer {
+  font-size: 1.5em;
   display: flex;
-  gap: 1rem;
-  font-size: calc(#{font-size-base} * 1.2);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .countdown-days,
 .countdown-hours,
 .countdown-minutes,
 .countdown-seconds {
-  padding: 1rem;
-  border-radius: 5px;
-  background-color: $secondary-color;
-  text-align: center;
+  margin: 0 10px;
 }
 
 .countdown-details {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 1rem 0;
-  font-size: calc(#{font-size-base}  * 0.9);
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.countdown-detail-title {
-  color: lighten($primary-color, 50%);
+.countdown-details div {
+  font-size: 1em;
 }
-
-.countdown-detail-value {
-  font-weight: bold;
-}
-
