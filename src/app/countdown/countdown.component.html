@@ -3,9 +3,9 @@
     Time to {{ holidayTitle }}
   </div>
   <ng-template #defaultTitle>
-    <div class="countdown-title">Choose the holiday</div>
+    <div class="countdown-title">Find the holiday</div>
   </ng-template>
-  <div class="countdown-timer">
+  <div class="countdown-timer" *ngIf="holidayTitle">
     <span class="countdown-days">{{ timeDifference.days }}</span> days,
     <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
     <span class="countdown-minutes">{{ timeDifference.minutes }}</span
@@ -37,7 +37,7 @@
     </div>
   </div>
   <div class="countdown-details">
-    <div class="info-item" *ngIf="holidayTitle" >Title: {{ holidayTitle }}</div>
+    <div class="info-item" *ngIf="holidayTitle">Title: {{ holidayTitle }}</div>
     <div class="info-item" *ngIf="selectedHolidayDate">Date: {{ selectedHolidayDate }}</div>
   </div>
 </div>
