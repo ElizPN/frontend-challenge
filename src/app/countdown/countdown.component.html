@@ -22,16 +22,18 @@
       (input)="handleInput($event)"
     />
   </div>
-  <div class="dropdown-list">
-    <div
-      class="dropdown-item"
-      *ngFor="let holiday of holidaysList"
-      (click)="onHolidaySelect(holiday)"
-    >
-      {{ holiday.name }}
-    </div>
-    <div class="no-results" *ngIf="holidaysList.length === 0 && searchValue !== ''">
-      No results found.
+  <div class="dropdown-container">
+    <div class="dropdown-list">
+      <div
+        class="dropdown-item"
+        *ngFor="let holiday of holidaysList"
+        (click)="onHolidaySelect(holiday)"
+      >
+        {{ holiday.name }}
+      </div>
+      <div class="no-results" *ngIf="holidaysList.length === 0 && searchValue !== ''">
+        No results found.
+      </div>
     </div>
   </div>
   <div class="countdown-details">
