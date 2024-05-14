@@ -30,7 +30,7 @@
       placeholder="Search Holidays"
       [(ngModel)]="searchValue"
       #searchField
-      (input)="handleInput($event)"
+      (input)="updateHolidaysOnInput($event)"
     />
   </div>
   <div class="dropdown-container">

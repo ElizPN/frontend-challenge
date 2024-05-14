@@ -112,7 +112,7 @@ export class CountdownComponent {
     this.holidaysList = []
   }
 
-  handleInput(event: Event) {
+  updateHolidaysOnInput(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value
 
     this.filterHolidays(inputValue)
