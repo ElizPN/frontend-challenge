@@ -70,4 +70,18 @@ describe('CountdownComponent', () => {
     expect(component.holidaysList[1].name).toBe('Christmas Day')
     expect(component.holidaysList[1].date).toBe('2024-12-25')
   })
+
+  it('should filter holidays based on search term', () => {
+    component.futureHolidays = {
+      'New Year': '2024-01-01',
+      'Christmas': '2024-12-25',
+      'Easter': '2024-04-05'
+    };
+
+    component.filterHolidays('e');
+
+    expect(component.holidaysList.length).toBe(2);
+    expect(component.holidaysList[0].name).toBe('New Year');
+    expect(component.holidaysList[1].name).toBe('Easter');
+  });
 })
