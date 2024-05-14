@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing'
 
 import { CountdownComponent } from './countdown.component'
 import { AppModule } from '../app.module'
@@ -74,14 +74,32 @@ describe('CountdownComponent', () => {
   it('should filter holidays based on search term', () => {
     component.futureHolidays = {
       'New Year': '2024-01-01',
-      'Christmas': '2024-12-25',
-      'Easter': '2024-04-05'
-    };
+      Christmas: '2024-12-25',
+      Easter: '2024-04-05',
+    }
 
-    component.filterHolidays('e');
+    component.filterHolidays('e')
 
-    expect(component.holidaysList.length).toBe(2);
-    expect(component.holidaysList[0].name).toBe('New Year');
-    expect(component.holidaysList[1].name).toBe('Easter');
-  });
+    expect(component.holidaysList.length).toBe(2)
+    expect(component.holidaysList[0].name).toBe('New Year')
+    expect(component.holidaysList[1].name).toBe('Easter')
+  })
+
+  it('should update holiday details and clear search on holiday selection', () => {
+    component.holidayTitle = ''
+    component.selectedHolidayDate = ''
+    component.searchValue = 'Christmas'
+    component.holidaysList = [
+      { name: 'Christmas', date: '2024-12-25' },
+      { name: 'New Year', date: '2024-01-01' },
+    ]
+
+    component.onHolidaySelect({ name: 'Christmas', date: '2024-12-25' })
+
+    expect(component.holidayTitle).toBe('Christmas')
+
+    expect(component.searchValue).toBe('')
+
+    expect(component.holidaysList.length).toBe(0)
+  })
 })
