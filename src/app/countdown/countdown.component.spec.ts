@@ -35,25 +35,39 @@ describe('CountdownComponent', () => {
   })
 
   it('should set time difference to zero when no selected date', () => {
-    component.selectedHolidayDate = '';
+    component.selectedHolidayDate = ''
 
-    component.calculateTimeDifference();
+    component.calculateTimeDifference()
 
-    expect(component.timeDifference.days).toBe(0);
-    expect(component.timeDifference.hours).toBe(0);
-    expect(component.timeDifference.minutes).toBe(0);
-    expect(component.timeDifference.seconds).toBe(0);
-  });
+    expect(component.timeDifference.days).toBe(0)
+    expect(component.timeDifference.hours).toBe(0)
+    expect(component.timeDifference.minutes).toBe(0)
+    expect(component.timeDifference.seconds).toBe(0)
+  })
 
   it('should set time difference to zero when selected date is in the past', () => {
-    component.selectedHolidayDate = '2022-01-01T00:00:00';
+    component.selectedHolidayDate = '2022-01-01T00:00:00'
 
-    component.calculateTimeDifference();
+    component.calculateTimeDifference()
 
-    expect(component.timeDifference.days).toBe(0);
-    expect(component.timeDifference.hours).toBe(0);
-    expect(component.timeDifference.minutes).toBe(0);
-    expect(component.timeDifference.seconds).toBe(0);
-  });
+    expect(component.timeDifference.days).toBe(0)
+    expect(component.timeDifference.hours).toBe(0)
+    expect(component.timeDifference.minutes).toBe(0)
+    expect(component.timeDifference.seconds).toBe(0)
+  })
+
+  it('should load holidays into holidaysList', () => {
+    component.futureHolidays = {
+      'New Year': '2024-01-01',
+      'Christmas Day': '2024-12-25',
+    }
+
+    component.loadHolidays()
+
+    expect(component.holidaysList.length).toBe(2)
+    expect(component.holidaysList[0].name).toBe('New Year')
+    expect(component.holidaysList[0].date).toBe('2024-01-01')
+    expect(component.holidaysList[1].name).toBe('Christmas Day')
+    expect(component.holidaysList[1].date).toBe('2024-12-25')
+  })
 })
-
