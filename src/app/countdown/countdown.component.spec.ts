@@ -102,4 +102,31 @@ describe('CountdownComponent', () => {
 
     expect(component.holidaysList.length).toBe(0)
   })
+
+  it('should update holidays list based on input value', () => {
+    component.holidaysList = [
+      { name: 'Midsummer Eve', date: '2024-06-22' },
+      { name: 'Christmas', date: '2024-12-25' },
+    ]
+
+    const mockEvent = { target: { value: 'Mid' } } as unknown as Event
+
+    component.updateHolidaysOnInput(mockEvent)
+
+    expect(component.holidaysList.length).toBe(1)
+    expect(component.holidaysList[0].name).toBe('Midsummer Eve')
+  })
+
+  it('should clear holidays list when input value is empty', () => {
+    component.holidaysList = [
+      { name: 'Midsummer Eve', date: '2024-06-22' },
+      { name: 'Christmas', date: '2024-12-25' },
+    ]
+
+    const mockEvent = { target: { value: '' } } as unknown as Event
+
+    component.updateHolidaysOnInput(mockEvent)
+
+    expect(component.holidaysList.length).toBe(0)
+  })
 })
