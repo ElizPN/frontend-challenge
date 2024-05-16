@@ -13,21 +13,27 @@
     >s
   </div>
   <div class="countdown-details">
-    <input
-      type="text"
-      placeholder="Type event"
-      [(ngModel)]="eventNameValue"
-      #searchField
-      (input)="updateEventName($event)"
-    />
-  </div>
-  <div class="countdown-details">
-    <input
-      type="date"
-      class="countdown-date-input"
-      placeholder="Select Date"
-      [(ngModel)]="selectedDateValue"
-      (input)="updateEventDate($event)"
-    />
+    <div class="field">
+      <label for="event-name">Title</label>
+      <input
+        type="text"
+        placeholder="Type event"
+        name="event-name"
+        [(ngModel)]="eventNameValue"
+        #searchField
+        (input)="updateEventName($event)"
+      />
+    </div>
+    <div class="field">
+      <label for="event-date">Date</label>
+      <input
+        type="date"
+        class="countdown-date-input"
+        name="event-date"
+        placeholder="Select Date"
+        [(ngModel)]="selectedDateValue"
+        (input)="updateEventDate($event)"
+      />
+    </div>
   </div>
 </div>

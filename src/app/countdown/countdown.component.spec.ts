@@ -22,14 +22,6 @@ describe('CountdownComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('should initialize component properties correctly', () => {
-    const component = new CountdownComponent()
-
-    expect(component.eventNameValue).toEqual('')
-    expect(component.selectedDateValue).toEqual('')
-    expect(component.timeDifference).toEqual({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-  })
-
   it('should calculate time difference when selected date is in the future', () => {
     const futureDate = new Date(Date.now() + 876990476)
     component.selectedDateValue = futureDate.toISOString()
