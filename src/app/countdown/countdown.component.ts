@@ -17,9 +17,6 @@ export class CountdownComponent implements OnInit {
     minutes: 0,
     seconds: 0,
   }
-  holidaysList: { name: string; date: string }[] = []
-  allHolidays: Record<string, string> = { ...holidaysData }
-  futureHolidays: Record<string, string> = {}
   private timerSubscription: Subscription | undefined
 
   ngOnInit() {

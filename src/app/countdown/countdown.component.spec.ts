@@ -22,9 +22,17 @@ describe('CountdownComponent', () => {
     expect(component).toBeTruthy()
   })
 
+  it('should initialize component properties correctly', () => {
+    const component = new CountdownComponent()
+
+    expect(component.eventNameValue).toEqual('')
+    expect(component.selectedDateValue).toEqual('')
+    expect(component.timeDifference).toEqual({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+  })
+
   it('should calculate time difference when selected date is in the future', () => {
     const futureDate = new Date(Date.now() + 876990476)
-    component.selectedHolidayDate = futureDate.toISOString()
+    component.selectedDateValue = futureDate.toISOString()
 
     component.calculateTimeDifference()
 
@@ -35,7 +43,7 @@ describe('CountdownComponent', () => {
   })
 
   it('should set time difference to zero when no selected date', () => {
-    component.selectedHolidayDate = ''
+    component.selectedDateValue = ''
 
     component.calculateTimeDifference()
 
@@ -46,7 +54,7 @@ describe('CountdownComponent', () => {
   })
 
   it('should set time difference to zero when selected date is in the past', () => {
-    component.selectedHolidayDate = '2022-01-01T00:00:00'
+    component.selectedDateValue = '2022-01-01T00:00:00'
 
     component.calculateTimeDifference()
 
@@ -56,77 +64,21 @@ describe('CountdownComponent', () => {
     expect(component.timeDifference.seconds).toBe(0)
   })
 
-  it('should load holidays into holidaysList', () => {
-    component.futureHolidays = {
-      'New Year': '2024-01-01',
-      'Christmas Day': '2024-12-25',
-    }
+  it('should update event name in localStorage', () => {
+    const component = new CountdownComponent()
+    const mockEvent = { target: { value: 'New Year' } } as unknown as Event
 
-    component.loadHolidays()
+    component.updateEventName(mockEvent)
 
-    expect(component.holidaysList.length).toBe(2)
-    expect(component.holidaysList[0].name).toBe('New Year')
-    expect(component.holidaysList[0].date).toBe('2024-01-01')
-    expect(component.holidaysList[1].name).toBe('Christmas Day')
-    expect(component.holidaysList[1].date).toBe('2024-12-25')
+    expect(window.localStorage.getItem('selectedHolidayName')).toEqual('New Year')
   })
 
-  it('should filter holidays based on search term', () => {
-    component.futureHolidays = {
-      'New Year': '2024-01-01',
-      Christmas: '2024-12-25',
-      Easter: '2024-04-05',
-    }
+  it('should update event date in localStorage', () => {
+    const component = new CountdownComponent()
+    const mockEvent = { target: { value: '2024-12-31' } } as unknown as Event
 
-    component.filterHolidays('e')
+    component.updateEventDate(mockEvent)
 
-    expect(component.holidaysList.length).toBe(2)
-    expect(component.holidaysList[0].name).toBe('New Year')
-    expect(component.holidaysList[1].name).toBe('Easter')
-  })
-
-  it('should update holiday details and clear search on holiday selection', () => {
-    component.holidayTitle = ''
-    component.selectedHolidayDate = ''
-    component.searchValue = 'Christmas'
-    component.holidaysList = [
-      { name: 'Christmas', date: '2024-12-25' },
-      { name: 'New Year', date: '2024-01-01' },
-    ]
-
-    component.onHolidaySelect({ name: 'Christmas', date: '2024-12-25' })
-
-    expect(component.holidayTitle).toBe('Christmas')
-
-    expect(component.searchValue).toBe('')
-
-    expect(component.holidaysList.length).toBe(0)
-  })
-
-  it('should update holidays list based on input value', () => {
-    component.holidaysList = [
-      { name: 'Midsummer Eve', date: '2024-06-22' },
-      { name: 'Christmas', date: '2024-12-25' },
-    ]
-
-    const mockEvent = { target: { value: 'Mid' } } as unknown as Event
-
-    component.updateHolidaysOnInput(mockEvent)
-
-    expect(component.holidaysList.length).toBe(1)
-    expect(component.holidaysList[0].name).toBe('Midsummer Eve')
-  })
-
-  it('should clear holidays list when input value is empty', () => {
-    component.holidaysList = [
-      { name: 'Midsummer Eve', date: '2024-06-22' },
-      { name: 'Christmas', date: '2024-12-25' },
-    ]
-
-    const mockEvent = { target: { value: '' } } as unknown as Event
-
-    component.updateHolidaysOnInput(mockEvent)
-
-    expect(component.holidaysList.length).toBe(0)
+    expect(window.localStorage.getItem('selectedHolidayDate')).toEqual('2024-12-31')
   })
 })
