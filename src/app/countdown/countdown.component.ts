@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core'
-import { interval } from 'rxjs'
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core'
+import { interval, Subscription } from 'rxjs'
 import holidaysData from '../../holidays.json'
 
 @Component({
@@ -7,11 +7,12 @@ import holidaysData from '../../holidays.json'
   templateUrl: './countdown.component.html',
   styleUrls: ['./countdown.component.scss'],
 })
-export class CountdownComponent {
+export class CountdownComponent implements OnInit {
   @ViewChild('searchField', { static: false }) searchField!: ElementRef
   holidayTitle: string = ''
   searchValue: string = ''
   selectedHolidayDate: string = ''
+  selectedDateValue: string = ''
   timeDifference: { days: number; hours: number; minutes: number; seconds: number } = {
     days: 0,
     hours: 0,
@@ -21,6 +22,11 @@ export class CountdownComponent {
   holidaysList: { name: string; date: string }[] = []
   allHolidays: Record<string, string> = { ...holidaysData }
   futureHolidays: Record<string, string> = {}
+  private timerSubscription: Subscription | undefined
+
+  ngOnInit() {
+    this.startTimer()
+  }
 
   constructor() {
     const storedSelectedHolidayDate = localStorage.getItem('selectedHolidayDate')
@@ -44,20 +50,22 @@ export class CountdownComponent {
     }
   }
 
+  private startTimer() {
+    this.timerSubscription = interval(1000).subscribe(() => {
+      this.calculateTimeDifference()
+    })
+  }
+
   saveToLocalStorage() {
     window.localStorage.setItem('selectedHolidayDate', this.selectedHolidayDate)
     window.localStorage.setItem('selectedHolidayName', this.holidayTitle)
   }
 
   calculateTimeDifference() {
-    if (!this.selectedHolidayDate) {
-      this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
-      return
-    }
-
     const currentDate = new Date()
-    const selectedDate = new Date(this.selectedHolidayDate)
-    if (selectedDate < currentDate || !selectedDate) {
+    const selectedDate = new Date(this.selectedDateValue)
+
+    if (this.selectedDateValue === '' || selectedDate < currentDate || !selectedDate) {
       this.timeDifference = { days: 0, hours: 0, minutes: 0, seconds: 0 }
       return
     }
@@ -80,45 +88,8 @@ export class CountdownComponent {
     }
   }
 
-  loadHolidays() {
-    this.holidaysList = []
-
-    Object.entries(this.futureHolidays).forEach(([name, date]) => {
-      this.holidaysList.push({ name, date })
-    })
-  }
-
-  filterHolidays(searchTerm: string) {
-    if (!searchTerm) {
-      this.loadHolidays()
-      return
-    }
-
-    this.holidaysList = Object.keys(this.futureHolidays)
-      .filter(key => key.toLowerCase().includes(searchTerm.toLowerCase()))
-      .map(key => ({ name: key, date: this.futureHolidays[key] }))
-  }
-
-  onHolidaySelect({ name, date }: { name: string; date: string }) {
-    this.holidayTitle = name
-    this.selectedHolidayDate = date
-    this.saveToLocalStorage()
-
-    interval(1000).subscribe(() => {
-      this.calculateTimeDifference()
-    })
-
-    this.searchValue = ''
-    this.holidaysList = []
-  }
-
   updateHolidaysOnInput(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value
-
-    this.filterHolidays(inputValue)
-
-    if (inputValue === '') {
-      this.holidaysList = []
-    }
+    console.log(inputValue)
   }
 }

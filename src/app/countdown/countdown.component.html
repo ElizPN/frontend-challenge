@@ -5,50 +5,28 @@
   <ng-template #defaultTitle>
     <div class="countdown-title">Find the holiday</div>
   </ng-template>
-  <div
-    class="countdown-timer"
-    *ngIf="
-      holidayTitle &&
-        timeDifference.days &&
-        timeDifference.hours &&
-        timeDifference.minutes &&
-        timeDifference.seconds;
-      else defaultTimerPlaceholder
-    "
-  >
+  <div class="countdown-timer">
     <span class="countdown-days">{{ timeDifference.days }}</span> days,
     <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
     <span class="countdown-minutes">{{ timeDifference.minutes }}</span
     >m, <span class="countdown-seconds">{{ timeDifference.seconds }}</span
     >s
   </div>
-  <ng-template #defaultTimerPlaceholder></ng-template>
   <div class="countdown-details">
     <input
       type="text"
-      class="countdown-title-input"
-      placeholder="Search Holidays"
+      placeholder="Type event"
       [(ngModel)]="searchValue"
       #searchField
       (input)="updateHolidaysOnInput($event)"
     />
   </div>
-  <div class="dropdown-container">
-    <div class="dropdown-list">
-      <div
-        class="dropdown-item"
-        *ngFor="let holiday of holidaysList"
-        (click)="onHolidaySelect(holiday)"
-      >
-        {{ holiday.name }}
-      </div>
-      <div class="no-results" *ngIf="holidaysList.length === 0 && searchValue !== ''">
-        No results found.
-      </div>
-    </div>
-  </div>
   <div class="countdown-details">
-    <div class="info-item" *ngIf="holidayTitle">Title: {{ holidayTitle }}</div>
-    <div class="info-item" *ngIf="selectedHolidayDate">Date: {{ selectedHolidayDate }}</div>
+    <input
+      type="date"
+      class="countdown-date-input"
+      placeholder="Select Date"
+      [(ngModel)]="selectedDateValue"
+    />
   </div>
 </div>
