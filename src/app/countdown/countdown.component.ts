@@ -9,9 +9,7 @@ import holidaysData from '../../holidays.json'
 })
 export class CountdownComponent implements OnInit {
   @ViewChild('searchField', { static: false }) searchField!: ElementRef
-  holidayTitle: string = ''
-  searchValue: string = ''
-  selectedHolidayDate: string = ''
+  eventNameValue: string = ''
   selectedDateValue: string = ''
   timeDifference: { days: number; hours: number; minutes: number; seconds: number } = {
     days: 0,
@@ -33,20 +31,11 @@ export class CountdownComponent implements OnInit {
     const storedSelectedHolidayName = localStorage.getItem('selectedHolidayName')
 
     if (storedSelectedHolidayDate && storedSelectedHolidayName) {
-      this.selectedHolidayDate = storedSelectedHolidayDate
-      this.holidayTitle = storedSelectedHolidayName
+      this.selectedDateValue = storedSelectedHolidayDate
+      this.eventNameValue = storedSelectedHolidayName
       interval(1000).subscribe(() => {
         this.calculateTimeDifference()
       })
-    }
-
-    for (const holiday in holidaysData) {
-      const holidayDate = new Date(this.allHolidays[holiday])
-      const currentDate = new Date()
-
-      if (holidayDate > currentDate) {
-        this.futureHolidays[holiday] = this.allHolidays[holiday]
-      }
     }
   }
 
@@ -54,11 +43,6 @@ export class CountdownComponent implements OnInit {
     this.timerSubscription = interval(1000).subscribe(() => {
       this.calculateTimeDifference()
     })
-  }
-
-  saveToLocalStorage() {
-    window.localStorage.setItem('selectedHolidayDate', this.selectedHolidayDate)
-    window.localStorage.setItem('selectedHolidayName', this.holidayTitle)
   }
 
   calculateTimeDifference() {
@@ -88,8 +72,13 @@ export class CountdownComponent implements OnInit {
     }
   }
 
-  updateHolidaysOnInput(event: Event) {
+  updateEventName(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value
-    console.log(inputValue)
+    window.localStorage.setItem('selectedHolidayName', inputValue)
+  }
+
+  updateEventDate(event: Event) {
+    const inputValue = (event.target as HTMLInputElement)?.value
+    window.localStorage.setItem('selectedHolidayDate', inputValue)
   }
 }

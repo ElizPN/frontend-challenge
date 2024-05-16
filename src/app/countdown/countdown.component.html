@@ -1,6 +1,6 @@
 <div class="countdown-container">
-  <div class="countdown-title" *ngIf="holidayTitle; else defaultTitle">
-    Time to {{ holidayTitle }}
+  <div class="countdown-title" *ngIf="eventNameValue; else defaultTitle">
+    Time to {{ eventNameValue }}
   </div>
   <ng-template #defaultTitle>
     <div class="countdown-title">Find the holiday</div>
@@ -16,9 +16,9 @@
     <input
       type="text"
       placeholder="Type event"
-      [(ngModel)]="searchValue"
+      [(ngModel)]="eventNameValue"
       #searchField
-      (input)="updateHolidaysOnInput($event)"
+      (input)="updateEventName($event)"
     />
   </div>
   <div class="countdown-details">
@@ -27,6 +27,7 @@
       class="countdown-date-input"
       placeholder="Select Date"
       [(ngModel)]="selectedDateValue"
+      (input)="updateEventDate($event)"
     />
   </div>
 </div>
