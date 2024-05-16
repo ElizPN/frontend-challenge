@@ -1,16 +1,18 @@
 <div class="countdown-container">
-  <div class="countdown-title" *ngIf="eventNameValue; else defaultTitle">
-    Time to {{ eventNameValue }}
-  </div>
-  <ng-template #defaultTitle>
-    <div class="countdown-title">Find the holiday</div>
-  </ng-template>
-  <div class="countdown-timer">
-    <span class="countdown-days">{{ timeDifference.days }}</span> days,
-    <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
-    <span class="countdown-minutes">{{ timeDifference.minutes }}</span
-    >m, <span class="countdown-seconds">{{ timeDifference.seconds }}</span
-    >s
+  <div appFitText>
+    <div class="countdown-title" *ngIf="eventNameValue; else defaultTitle">
+      Time to {{ eventNameValue }}
+    </div>
+    <ng-template #defaultTitle>
+      <div class="countdown-title">Create event</div>
+    </ng-template>
+    <div class="countdown-timer">
+      <span class="countdown-days">{{ timeDifference.days }}</span> days,
+      <span class="countdown-hours">{{ timeDifference.hours }}</span> h,
+      <span class="countdown-minutes">{{ timeDifference.minutes }}</span
+      >m, <span class="countdown-seconds">{{ timeDifference.seconds }}</span
+      >s
+    </div>
   </div>
   <div class="countdown-details">
     <div class="field">

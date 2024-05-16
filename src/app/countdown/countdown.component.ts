@@ -1,6 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core'
 import { interval, Subscription } from 'rxjs'
-import holidaysData from '../../holidays.json'
 
 @Component({
   selector: 'app-countdown',

@@ -1,9 +1,14 @@
+div[appFitText] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+}
+
 .countdown-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: #f2f2f2;
-  padding: 3rem;
   border-radius: 1rem;
   font-family: sans-serif;
 }
@@ -14,38 +19,30 @@
   }
 }
 
-@media (min-width: 768px) {
-  .countdown-container {
-    margin-top: 4rem;
-    min-width: 7rem;
-    height: 30rem;
-  }
-}
-
 .countdown-title {
-  font-size: 2em;
   margin-bottom: 1rem;
   color: #72035d;
-  font-size: 3rem;
   font-weight: 800;
   text-align: center;
   padding-top: 5rem;
   padding-bottom: 1rem;
+  font-size: 1.6em;
 }
 
 .countdown-timer {
-  font-size: 1.5em;
+  font-size: 1em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.7rem;
+  width: 99%;
 }
 
 .countdown-days,
 .countdown-hours,
 .countdown-minutes,
 .countdown-seconds {
-  margin: 0 1rem;
+  margin: 0 0.3rem;
 }
 
 .countdown-details {
@@ -53,14 +50,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90%;
   margin: auto;
 
   .countdown-title-input {
     font-size: 2rem;
     border: 2px solid #ccc;
     border-radius: 0.5rem;
-    width: 30rem;
     transition: border-color 0.3s ease;
 
     &:focus {
@@ -75,7 +70,6 @@
   }
 
   div {
-    font-size: 1em;
     margin: 1rem;
   }
   label {
