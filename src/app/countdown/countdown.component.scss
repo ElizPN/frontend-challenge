@@ -1,7 +1,7 @@
 div[appFitText] {
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; 
+  text-overflow: ellipsis;
 }
 
 .countdown-container {
@@ -13,9 +13,9 @@ div[appFitText] {
   font-family: sans-serif;
 }
 
-@media (min-width: 370px) {
+@media (min-width: 250px) {
   .countdown-container {
-    height: 100vh;
+    min-height: 80vh;
   }
 }
 
