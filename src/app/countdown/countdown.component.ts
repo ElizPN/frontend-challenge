@@ -23,12 +23,12 @@ export class CountdownComponent implements OnInit {
   }
 
   constructor() {
-    const storedSelectedHolidayDate = localStorage.getItem('selectedHolidayDate')
-    const storedSelectedHolidayName = localStorage.getItem('selectedHolidayName')
+    const storedSelectedEventDate = localStorage.getItem('selectedEventDate')
+    const storedSelectedEventName = localStorage.getItem('selectedEventName')
 
-    if (storedSelectedHolidayDate && storedSelectedHolidayName) {
-      this.selectedDateValue = storedSelectedHolidayDate
-      this.eventNameValue = storedSelectedHolidayName
+    if (storedSelectedEventDate && storedSelectedEventName) {
+      this.selectedDateValue = storedSelectedEventDate
+      this.eventNameValue = storedSelectedEventName
       interval(1000).subscribe(() => {
         this.calculateTimeDifference()
       })
@@ -70,11 +70,11 @@ export class CountdownComponent implements OnInit {
 
   updateEventName(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value
-    window.localStorage.setItem('selectedHolidayName', inputValue)
+    window.localStorage.setItem('selectedEventName', inputValue)
   }
 
   updateEventDate(event: Event) {
     const inputValue = (event.target as HTMLInputElement)?.value
-    window.localStorage.setItem('selectedHolidayDate', inputValue)
+    window.localStorage.setItem('selectedEventDate', inputValue)
   }
 }
