@@ -1,7 +1,7 @@
 # Countdown App
 
 # Features
-- Display Countdown 
+- Displayd Countdown 
 - Input text fits into an element in one line
 - Date and name are persisted between page reloads
 - Added responsivness for mobeile and iPad screen
